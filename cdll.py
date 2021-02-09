@@ -135,6 +135,9 @@ class CircularList:
             current = current.next
             count += 1
 
+        if current == self.sentinel:
+            raise CDLLException
+
         new_node = DLNode(value)
         new_node.prev = current
         new_node.next = current.next
@@ -185,7 +188,10 @@ class CircularList:
         if self.is_empty():
             raise CDLLException
 
-        return self.sentinel.next.value
+        node = self.sentinel.next
+        front_val = node.value
+
+        return front_val
 
     def get_back(self) -> object:
         """
@@ -200,7 +206,7 @@ class CircularList:
         """
 
         if self.is_empty():
-            raise CDLLException
+            return False
 
         current = self.sentinel.next
 
@@ -496,10 +502,10 @@ class CircularList:
             # 25 % 10 = 5
             # 25 // 10 = 2
 
-"""
+
 if __name__ == '__main__':
     pass
-
+    """
     
     print('\n# add_front example 1')
     lst = CircularList()
@@ -565,6 +571,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(type(e))
     print(lst)
+    """
 
     print('\n# get_front example 1')
     lst = CircularList(['A', 'B'])
@@ -578,6 +585,7 @@ if __name__ == '__main__':
     except Exception as e:
         print(type(e))
 
+    """
     print('\n# get_back example 1')
     lst = CircularList([1, 2, 3])
     lst.add_back(4)

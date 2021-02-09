@@ -215,13 +215,16 @@ class LinkedList:
         else:
             return self.count_help(value, curr.next)
 
+
     def slice(self, start_index: int, size: int) -> object:
         """
         """
-
         if start_index < 0 or start_index > self.length() - 1 or \
-                size <= 0 or start_index + size > self.length():
+                size < 0 or start_index + size > self.length():
             raise SLLException
+
+        if size == 0:
+            return LinkedList()
 
         node = self.get_node_at_index(start_index)
 
@@ -234,23 +237,23 @@ class LinkedList:
             new_ll.add_back(node.value)
             self.slice_help(node.next, size - 1, new_ll)
 
-    def get_node_at_index(self, index: int) -> None:
+    def get_node_at_index(self, index: int):
         """
         """
         if index < 0 or index > (self.length() - 1):
             raise SLLException
-        self.get_node_at_index_help(index, self.head)
+        return self.get_node_at_index_help(index, self.head)
 
     def get_node_at_index_help(self, index, curr):
-        if index == 0:
+        if index < 0:
             return curr
         else:
-            self.get_node_at_index_help(index - 1, curr.next)
+            return self.get_node_at_index_help(index - 1, curr.next)
 
-"""
+
 if __name__ == '__main__':
     pass
-
+    """
     print('\n# add_front example 1')
     list = LinkedList()
     print(list)
@@ -348,6 +351,7 @@ if __name__ == '__main__':
     print('\n# count example 1')
     list = LinkedList([1, 2, 3, 1, 2, 2])
     print(list, list.count(1), list.count(2), list.count(3), list.count(4))
+    """
 
     print('\n# slice example 1')
     list = LinkedList([1, 2, 3, 4, 5, 6, 7, 8, 9])
@@ -366,5 +370,5 @@ if __name__ == '__main__':
             print(" --- OK: ", list.slice(index, size))
         except:
             print(" --- exception occurred.")
-"""
+
 
