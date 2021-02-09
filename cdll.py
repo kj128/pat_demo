@@ -243,12 +243,21 @@ class CircularList:
         #     #index += 1
         # return count
 
+    # if (index1 < 0) or (index2 < 0) or (index1 >= self.length()) or (index2 >= self.length()):
+    #     raise CDLLException
+
     def swap_pairs(self, index1: int, index2: int) -> None:
         """
         """
+        # index1 = min(index1, index2)
+        # index2 = max(index1, index2)
 
-        if (index1 < 0) or (index2 < 0) or (index1 >= self.length()) or (index2 >= self.length()):
+
+        if index1 < 0 or index2 >= self.length():
             raise CDLLException
+
+        # if (index1 < 0) or (index2 < 0) or (index1 >= self.length()) or (index2 >= self.length()):
+        #     raise CDLLException
 
         if index1 == index2:
             return
@@ -292,11 +301,19 @@ class CircularList:
             next_of_node2.prev = node1
 
     def get_node_at_index(self, index):
-        if index < 0 or index >= self.length() or self.length() == 0:
-            raise CDLLException
 
         curr_index = 0
         current = self.sentinel.next
+
+        # node1 = self.sentinel.next
+        # while index1 > 0:
+        #     node1 = node1.next
+        #     index1 -= 1
+        #
+        # node2 = self.sentinel.next
+        # while index2 > 0:
+        #     node2 = node2.next
+        #     index2 -= 1
 
         while curr_index < index:
             current = current.next
