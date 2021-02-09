@@ -296,22 +296,46 @@ class CircularList:
             raise CDLLException
 
         curr_index = 0
+        current = self.sentinel.next
+
+        while curr_index < index:
+            current = current.next
+            curr_index += 1
+
+        return current
+
+    """
+    def get_node_at_index(self, index):
+        if index < 0 or index >= self.length() or self.length() == 0:
+            raise CDLLException
+
+        curr_index = 0
 
         # Case for previous
         if self.length() - index < index:
             current = self.sentinel
             times = self.length() - index
+            print("Times: ", times)
 
             for i in range(times):
                 current = current.prev
 
         else:
             current = self.sentinel.next
+
+            print("Index: ", index)
             while curr_index < index:
                 current = current.next
                 curr_index += 1
 
         return current
+    """
+
+
+
+
+
+
 
     def reverse(self) -> None:
         """
@@ -330,7 +354,30 @@ class CircularList:
     def sort(self) -> None:
         """
         """
-        pass
+
+
+        # Loop n - 1 times ( outer loop )
+
+            # pointer for node1
+            # pointer for node2
+
+            # Loop (n - 1 - i) times (inner loop)
+                # check if n1 > n2:
+                #       swap n1 and n2
+
+                # move pointers (n1 always point to left node, n2 point to right node)
+
+        #
+
+
+
+
+
+
+
+
+
+
 
     def rotate(self, steps: int) -> None:
         """

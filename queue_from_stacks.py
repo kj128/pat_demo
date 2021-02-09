@@ -52,7 +52,6 @@ class Queue:
     def enqueue(self, value: object) -> None:
         """
         """
-
         self.s1.push(value)
 
     def dequeue(self) -> object:
@@ -62,8 +61,8 @@ class Queue:
         if self.is_empty():
             raise QueueException
 
-        last_obj = self.s1.sll_val.()
-        self.s1.sll_val.pop()
+        last_obj = self.s1.top()
+        self.s1.pop()
         return last_obj
 
 
