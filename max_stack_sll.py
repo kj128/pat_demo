@@ -90,15 +90,13 @@ class MaxStack:
         if self.is_empty():
             raise StackException
 
-
-
         return self.sll_max.get_front()
 
 
 # BASIC TESTING
 if __name__ == "__main__":
     pass
-    """
+
 
     print('\n# push example 1')
     s = MaxStack()
@@ -133,7 +131,7 @@ if __name__ == "__main__":
     print(s.top())
     print(s.top())
     print(s)
-    """
+
 
     print('\n# get_max example 1')
     s = MaxStack()

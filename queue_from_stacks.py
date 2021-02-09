@@ -58,12 +58,24 @@ class Queue:
         """
         """
 
-        if self.is_empty():
+        if self.s1.is_empty():
             raise QueueException
 
-        last_obj = self.s1.top()
-        self.s1.pop()
-        return last_obj
+        while self.s1.is_empty() is not True:
+            self.s2.push(self.s1.pop())
+
+        s2_elem = self.s2.pop()
+
+        while self.s2.is_empty() is not True:
+            self.s1.push(self.s2.pop())
+
+        return s2_elem
+
+
+        # last_obj = self.s1.sll_val.get_back()
+        #
+        # #self.s1.pop()
+        # return last_obj
 
 
 

@@ -553,10 +553,7 @@ class CircularList:
             else:
                 self.add_front(num)
 
-            # how to get rid of leading 0
 
-            # 25 % 10 = 5
-            # 25 // 10 = 2
 
 
 if __name__ == '__main__':
