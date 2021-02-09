@@ -77,7 +77,6 @@ class LinkedList:
 
     def add_front(self, value: object) -> None:
         """
-        TODO: Write this implementation
         """
         new_node = SLNode(value)
         new_node.next = self.head.next
@@ -85,7 +84,6 @@ class LinkedList:
 
     def add_back(self, value: object) -> None:
         """
-        TODO: Write this implementation
         """
         # traverse the list to find last node
         self.add_back_help(value, self.head)
@@ -100,7 +98,6 @@ class LinkedList:
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
-        TODO: Write this implementation
         """
 
         if index < 0 or index > self.length():
@@ -119,7 +116,6 @@ class LinkedList:
 
     def remove_front(self) -> None:
         """
-        TODO: Write this implementation
         """
 
         """
@@ -137,7 +133,6 @@ class LinkedList:
 
     def remove_back(self) -> None:
         """
-        TODO: Write this implementation
         """
         if self.is_empty():
             raise SLLException
@@ -154,7 +149,6 @@ class LinkedList:
 
     def remove_at_index(self, index: int) -> None:
         """
-        TODO: Write this implementation
         """
         if index < 0 or index > (self.length() - 1):
             raise SLLException
@@ -171,7 +165,6 @@ class LinkedList:
 
     def get_front(self) -> object:
         """
-        TODO: Write this implementation
         """
 
         if self.is_empty():
@@ -181,7 +174,6 @@ class LinkedList:
 
     def get_back(self) -> object:
         """
-        TODO: Write this implementation
         """
         if self.is_empty():
             raise SLLException
@@ -196,7 +188,6 @@ class LinkedList:
 
     def remove(self, value: object) -> bool:
         """
-        TODO: Write this implementation
         """
         return self.remove_help(value, self.head)
 
@@ -213,7 +204,6 @@ class LinkedList:
 
     def count(self, value: object) -> int:
         """
-        TODO: Write this implementation
         """
         return self.count_help(value, self.head)
 
@@ -227,14 +217,13 @@ class LinkedList:
 
     def slice(self, start_index: int, size: int) -> object:
         """
-        TODO: Write this implementation
         """
 
         if start_index < 0 or start_index > self.length() - 1 or \
                 size <= 0 or start_index + size > self.length():
             raise SLLException
 
-        node = self.get_node_at_index(index)
+        node = self.get_node_at_index(start_index)
 
         new_ll = LinkedList()
         self.slice_help(node, size, new_ll)
@@ -247,7 +236,6 @@ class LinkedList:
 
     def get_node_at_index(self, index: int) -> None:
         """
-        TODO: Write this implementation
         """
         if index < 0 or index > (self.length() - 1):
             raise SLLException

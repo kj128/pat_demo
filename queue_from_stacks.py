@@ -51,23 +51,23 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
-        TODO: Write this implementation
         """
 
         self.s1.push(value)
 
     def dequeue(self) -> object:
         """
-        TODO: Write this implementation
         """
 
         if self.is_empty():
             raise QueueException
 
+        last_obj = self.s1.sll_val.get_back
         self.s1.sll_val.remove_back()
+        return last_obj
 
 
-"""
+
 # BASIC TESTING
 if __name__ == "__main__":
     pass
@@ -89,5 +89,5 @@ if __name__ == "__main__":
             print(q.dequeue(), q)
         except Exception as e:
             print("No elements in queue", type(e))
-"""
+
 

@@ -51,14 +51,14 @@ class MaxStack:
 
     def push(self, value: object) -> None:
         """
-        TODO: Write this implementation
         """
         self.sll_val.add_front(value)
 
+        if self.sll_max.is_empty() or self.sll_max.get_front() < value:
+            self.sll_max.add_front(value)
 
     def pop(self) -> object:
         """
-        TODO: Write this implementation
         """
 
         if self.is_empty():
@@ -67,13 +67,14 @@ class MaxStack:
         # get back
         removed_obj = self.sll_val.get_front()
         self.sll_val.remove_front()
+
+        if not self.sll_max.is_empty() and self.sll_max.get_front() == removed_obj:
+            self.sll_max.remove_front()
+
         return removed_obj
-
-
 
     def top(self) -> object:
         """
-        TODO: Write this implementation
         """
         if self.is_empty():
             raise StackException
@@ -83,19 +84,15 @@ class MaxStack:
         return top_obj
 
 
-
     def get_max(self) -> object:
         """
-        TODO: Write this implementation
         """
-        pass
+        if self.is_empty():
+            raise StackException
+
+        return self.sll_max.get_front()
 
 
-
-
-
-
-"""
 # BASIC TESTING
 if __name__ == "__main__":
     pass
@@ -106,7 +103,6 @@ if __name__ == "__main__":
     for value in [1, 2, 3, 4, 5]:
         s.push(value)
     print(s)
-
 
     print('\n# pop example 1')
     s = MaxStack()
@@ -122,7 +118,6 @@ if __name__ == "__main__":
         except Exception as e:
             print("Exception:", type(e))
 
-
     print('\n# top example 1')
     s = MaxStack()
     try:
@@ -137,8 +132,6 @@ if __name__ == "__main__":
     print(s)
 
 
-
-    
     print('\n# get_max example 1')
     s = MaxStack()
     for value in [1, -20, 15, 21, 21, 40, 50]:
@@ -155,4 +148,5 @@ if __name__ == "__main__":
             print(s.get_max())
         except Exception as e:
             print(type(e))
-    """
+
+

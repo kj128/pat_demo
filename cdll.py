@@ -104,7 +104,6 @@ class CircularList:
 
     def add_front(self, value: object) -> None:
         """
-        TODO: Write this implementation
         """
         new_node = DLNode(value)
         new_node.prev = self.sentinel
@@ -115,7 +114,6 @@ class CircularList:
 
     def add_back(self, value: object) -> None:
         """
-        TODO: Write this implementation
         """
         new_node = DLNode(value)
         new_node.prev = self.sentinel.prev
@@ -126,7 +124,6 @@ class CircularList:
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
-        TODO: Write this implementation
         """
         if index < 0 or index >= self.length():
             raise CDLLException
@@ -147,7 +144,6 @@ class CircularList:
 
     def remove_front(self) -> None:
         """
-        TODO: Write this implementation
         """
         if self.is_empty():
             raise CDLLException
@@ -157,7 +153,6 @@ class CircularList:
 
     def remove_back(self) -> None:
         """
-        TODO: Write this implementation
         """
         if self.is_empty():
             raise CDLLException
@@ -167,7 +162,6 @@ class CircularList:
 
     def remove_at_index(self, index: int) -> None:
         """
-        TODO: Write this implementation
         """
         if index < 0 or index >= self.length():
             raise CDLLException
@@ -187,7 +181,6 @@ class CircularList:
 
     def get_front(self) -> object:
         """
-        TODO: Write this implementation
         """
         if self.is_empty():
             raise CDLLException
@@ -196,7 +189,6 @@ class CircularList:
 
     def get_back(self) -> object:
         """
-        TODO: Write this implementation
         """
         if self.is_empty():
             raise CDLLException
@@ -205,7 +197,6 @@ class CircularList:
 
     def remove(self, value: object) -> bool:
         """
-        TODO: Write this implementation
         """
 
         if self.is_empty():
@@ -227,7 +218,6 @@ class CircularList:
 
     def count(self, value: object) -> int:
         """
-        TODO: Write this implementation
         """
 
         count = 0
@@ -250,7 +240,6 @@ class CircularList:
 
     def swap_pairs(self, index1: int, index2: int) -> None:
         """
-        TODO: Write this implementation
         """
 
         if (index1 < 0) or (index2 < 0) or (index1 >= self.length()) or (index2 >= self.length()):
@@ -311,7 +300,6 @@ class CircularList:
 
     def reverse(self) -> None:
         """
-        TODO: Write this implementation
         """
         curr = self.sentinel
 
@@ -326,13 +314,11 @@ class CircularList:
 
     def sort(self) -> None:
         """
-        TODO: Write this implementation
         """
         pass
 
     def rotate(self, steps: int) -> None:
         """
-        TODO: Write this implementation
         """
 
         # curr = self.sentinel
@@ -354,6 +340,7 @@ class CircularList:
         # change next pointer of last node to sentinel
         # change next pointer of sentinel to first node
 
+        """
         head = self.sentinel
         curr = self.sentinel.next
         last = self.sentinel.prev
@@ -377,10 +364,10 @@ class CircularList:
         curr.next = curr
         curr.prev = curr
         curr = num_node.next
+        """
 
     def remove_duplicates(self) -> None:
         """
-        TODO: Write this implementation
         """
         curr = self.sentinel.next
 
@@ -399,7 +386,6 @@ class CircularList:
 
     def odd_even(self) -> None:
         """
-        TODO: Write this implementation
         """
 
         # get odd nodes, get even nodes
@@ -422,7 +408,6 @@ class CircularList:
 
     def add_integer(self, num: int) -> None:
         """
-        TODO: Write this implementation
         """
 
         # given a linked list and integer
