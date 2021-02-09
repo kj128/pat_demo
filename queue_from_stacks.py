@@ -62,7 +62,7 @@ class Queue:
         if self.is_empty():
             raise QueueException
 
-        last_obj = self.s1.sll_val.top()
+        last_obj = self.s1.sll_val.()
         self.s1.sll_val.pop()
         return last_obj
 

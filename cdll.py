@@ -125,7 +125,8 @@ class CircularList:
     def insert_at_index(self, index: int, value: object) -> None:
         """
         """
-        if index < 0 or index >= self.length():
+        if index < 0 or index > self.length():
+            print(index)
             raise CDLLException
 
         count = 0
@@ -134,9 +135,6 @@ class CircularList:
         while count != index:
             current = current.next
             count += 1
-
-        if current == self.sentinel:
-            raise CDLLException
 
         new_node = DLNode(value)
         new_node.prev = current
@@ -151,8 +149,9 @@ class CircularList:
         if self.is_empty():
             raise CDLLException
 
+
         self.sentinel.next = self.sentinel.next.next
-        self.sentinel.next.next.prev = self.sentinel
+        self.sentinel.next.prev = self.sentinel
 
     def remove_back(self) -> None:
         """
@@ -257,6 +256,7 @@ class CircularList:
         elif index1 > index2:
             index1, index2 = index2, index1
 
+
         node1 = self.get_node_at_index(index1)
         node2 = self.get_node_at_index(index2)
 
@@ -296,11 +296,20 @@ class CircularList:
             raise CDLLException
 
         curr_index = 0
-        current = self.sentinel.next
 
-        while curr_index < index:
-            current = current.next
-            curr_index += 1
+        # Case for previous
+        if self.length() - index < index:
+            current = self.sentinel
+            times = self.length() - index
+
+            for i in range(times):
+                current = current.prev
+
+        else:
+            current = self.sentinel.next
+            while curr_index < index:
+                current = current.next
+                curr_index += 1
 
         return current
 
@@ -522,7 +531,8 @@ if __name__ == '__main__':
     lst.add_back('B')
     lst.add_back('A')
     print(lst)
-
+    
+    
     print('\n# insert_at_index example 1')
     lst = CircularList()
     test_cases = [(0, 'A'), (0, 'B'), (1, 'C'), (3, 'D'), (-1, 'E'), (5, 'F')]
@@ -534,6 +544,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(type(e))
 
+    
     print('\n# remove_front example 1')
     lst = CircularList([1, 2])
     print(lst)
@@ -543,6 +554,7 @@ if __name__ == '__main__':
             print('Successful removal', lst)
         except Exception as e:
             print(type(e))
+    
 
     print('\n# remove_back example 1')
     lst = CircularList()
@@ -571,7 +583,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(type(e))
     print(lst)
-    """
+    
 
     print('\n# get_front example 1')
     lst = CircularList(['A', 'B'])
@@ -585,7 +597,7 @@ if __name__ == '__main__':
     except Exception as e:
         print(type(e))
 
-    """
+    
     print('\n# get_back example 1')
     lst = CircularList([1, 2, 3])
     lst.add_back(4)
@@ -610,7 +622,7 @@ if __name__ == '__main__':
     print('\n# count example 2')
     lst = CircularList([1, 2, 2, 3, 1, 4, 3, 3, 1, 4, 2, 1, 2])
     print(lst, lst.count(1), lst.count(2), lst.count(3), lst.count(4))
-
+    """
 
 
 
@@ -628,7 +640,7 @@ if __name__ == '__main__':
             print(type(e))
 
 
-
+    """
     print('\n# reverse example 1')
     test_cases = (
         [1, 2, 3, 3, 4, 5],

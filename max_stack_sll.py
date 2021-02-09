@@ -54,7 +54,7 @@ class MaxStack:
         """
         self.sll_val.add_front(value)
 
-        if self.sll_max.is_empty() or self.sll_max.get_front() < value:
+        if self.sll_max.is_empty() or self.sll_max.get_front() <= value:
             self.sll_max.add_front(value)
 
     def pop(self) -> object:
@@ -68,7 +68,7 @@ class MaxStack:
         removed_obj = self.sll_val.get_front()
         self.sll_val.remove_front()
 
-        if not self.sll_max.is_empty() and self.sll_max.get_front() == removed_obj:
+        if self.sll_max.is_empty() is False and self.sll_max.get_front() == removed_obj:
             self.sll_max.remove_front()
 
         return removed_obj
@@ -90,12 +90,15 @@ class MaxStack:
         if self.is_empty():
             raise StackException
 
+
+
         return self.sll_max.get_front()
 
 
 # BASIC TESTING
 if __name__ == "__main__":
     pass
+    """
 
     print('\n# push example 1')
     s = MaxStack()
@@ -130,7 +133,7 @@ if __name__ == "__main__":
     print(s.top())
     print(s.top())
     print(s)
-
+    """
 
     print('\n# get_max example 1')
     s = MaxStack()
