@@ -252,8 +252,8 @@ class CircularList:
         # index1 = min(index1, index2)
         # index2 = max(index1, index2)
 
-
-        if index1 < 0 or index2 >= self.length():
+        length = self.length()
+        if index1 < 0 or index2 >= length or index2 == length:
             raise CDLLException
 
         # if (index1 < 0) or (index2 < 0) or (index1 >= self.length()) or (index2 >= self.length()):
@@ -699,6 +699,7 @@ if __name__ == '__main__':
             print(lst)
         except Exception as e:
             print(type(e))
+
 
 
     """
