@@ -254,11 +254,11 @@ class CircularList:
 
         length = self.length()
 
-        if index1 < 0 or index2 >= length or index2 == length:
-            raise CDLLException
-
-        # if (index1 < 0) or (index2 < 0) or (index1 >= self.length()) or (index2 >= self.length()):
+        # if index1 < 0 or index2 >= length or index2 == length:
         #     raise CDLLException
+
+        if (index1 < 0) or (index2 < 0) or (index1 >= length) or (index2 >= length):
+            raise CDLLException
 
         if index1 == index2:
             return
