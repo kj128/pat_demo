@@ -374,16 +374,11 @@ class CircularList:
         length = self.length()
         curr = self.sentinel.next
 
-        # print("Length: ", length)
         for i in range(length):
             node1 = self.sentinel.next
             node2 = self.sentinel.next.next
 
-            # print(curr.value)
-
-
             for j in range(length - i - 1):
-                # print(node1.value, node2.value)
 
                 # value on left is greater on the right, swap
                 if node1.value > node2.value:
@@ -409,74 +404,113 @@ class CircularList:
                 node1 = node1.next
                 node2 = node2.next
 
-            # print(self)
-
-
-
-
-
-
-
-
-
-
-
-        # Loop n - 1 times ( outer loop )
-
-            # pointer for node1
-            # pointer for node2
-
-            # Loop (n - 1 - i) times (inner loop)
-                # check if n1 > n2:
-                #       swap n1 and n2
-
-                # move pointers (n1 always point to left node, n2 point to right node)
-
-        # ------------------------------------------------------
-
-        # check if list is empty
-
-
-        # curr = self.sentinel.next
-
-        # forward traverse
-        # pointer to first node (curr)
-        # while curr != self.sentinel: (will execute as long as pointer is pointing to a node containing a value)
-        #       value = curr.data
-        #       curr = curr.next (move pointer to next node)
-        #
-
-        # backward traverse
-        # pointer to last node (self.sentinel.prev)
-        # while curr != self.sentinel:
-        #           curr = curr.prev
-
-        # insert node
-        # temp = prev = Null
-        # temp = data
-        # begin is null
-
-        # Iterate self.length() times, each time for one less pair
-            # Iterate through all pairs of numbers remaining
-                # Swap positions if values are out of order
-                    # curr_node.value > next_value.value:
-                # else:
-                    # Proceed to next node
-
-
-
-
-
-
-
-
-
 
 
     def rotate(self, steps: int) -> None:
         """
         """
-        # check base case:
+        # length = self.length()
+        #
+        # if length <= 1:
+        #     return
+        #
+        # steps %= length
+        #
+        # if steps == 0:
+        #     return
+        #
+        # if steps > 0:  # rotate right
+        #     for i in range(steps):
+        #         sentinel = self.sentinel
+        #         next = sentinel.next
+        #         next_next = next.next
+        #         back = sentinel.prev
+        #
+        #         back.prev = next
+        #
+        #         sentinel.next = next_next
+        #         sentinel.prev = next
+        #
+        #         next.next = sentinel
+        #         next.prev = back
+        #
+        #         next_next.prev = sentinel
+        #
+        # elif steps < 0:  # rotate left
+        #     steps = -steps
+        #     for i in range(steps):
+        #         sentinel = self.sentinel
+        #         next = sentinel.next
+        #         next_next = next.next
+        #         back = sentinel.prev
+        #
+        #         back.prev = sentinel
+        #         back.next = next
+        #
+        #         sentinel.next = back
+        #         sentinel.prev = next_next
+        #
+        #         next_next.prev = sentinel
+        #
+        #         next.prev = back
+        # -------------------------------------------------------------
+
+        length = self.length()
+
+        # list is empty, return
+        if length == 0:
+            return
+
+        # calculate relative position of k steps
+        steps %= length
+
+        # if k steps == 0, return
+        if steps == 0:
+            return
+
+        # make tail point to last node
+        tail = self.sentinel.prev
+        head = self.sentinel.next
+
+        # new head will start form (length - k steps)
+        # attach tail -> next to head and find new head relative to tail position
+        steps_to_new_head = length - steps
+        tail.next = head
+
+        while steps_to_new_head > 0:
+            tail = tail.next
+            steps_to_new_head -= 1
+
+        new_head = tail.next
+        tail.next = self.sentinel
+        self.sentinel.next = new_head
+
+
+
+
+
+
+
+
+
+
+
+
+            # make tail point to last node while calculating length of length list
+        # calculate relative position of k steps
+        # if k == 0, return
+
+        # new head will start from length - k
+        # attach tail.next to head and find new head relative to tail position
+
+        # make new head point to tail.next
+        # and point tail.next to sentinel
+
+
+
+
+
+                # check base case:
                 # if list is empty or (list.length() % steps == 0):
                     # return
 
@@ -502,9 +536,6 @@ class CircularList:
 
         # new_head = tail.next
         # tail.next = None
-
-
-
 
         # new_tail = head
         # for index in range (1, n - k):
@@ -930,7 +961,7 @@ if __name__ == '__main__':
     lst = CircularList([1, 'A'])
     lst.reverse()
     print(lst)
-    """
+
 
 
     print('\n# sort example 1')
@@ -966,7 +997,7 @@ if __name__ == '__main__':
     lst.rotate(10)
     print(lst)
 
-
+    """
     print('\n# remove_duplicates example 1')
     test_cases = (
         [1, 2, 3, 4, 5], [1, 1, 1, 1, 1],
