@@ -458,7 +458,7 @@ class CircularList:
         length = self.length()
 
         # list is empty, return
-        if length == 0:
+        if length == 0 or length == 1:
             return
 
         # calculate relative position of k steps
@@ -472,17 +472,30 @@ class CircularList:
         tail = self.sentinel.prev
         head = self.sentinel.next
 
-        # new head will start form (length - k steps)
+        # get tail node, get new_head and disconnect with previous node
+        # connect tail node to original head node
+        # change pointers
+
+
+        # new head will start from (length - k steps)
         # attach tail -> next to head and find new head relative to tail position
         steps_to_new_head = length - steps
         tail.next = head
+        head.prev = tail
 
         while steps_to_new_head > 0:
             tail = tail.next
             steps_to_new_head -= 1
 
         new_head = tail.next
+        new_head.prev = self.sentinel
         tail.next = self.sentinel
+
+
+
+
+        self.sentinel.prev = tail
+
         self.sentinel.next = new_head
 
 
@@ -496,7 +509,7 @@ class CircularList:
 
 
 
-            # make tail point to last node while calculating length of length list
+        # make tail point to last node while calculating length of length list
         # calculate relative position of k steps
         # if k == 0, return
 
