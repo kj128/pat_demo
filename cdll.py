@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
+# Student Name: Katrina Jang
+# Assignment: 3
+# Description: Implement methods for a circular doubly linked list
 
 
 class CDLLException(Exception):
@@ -104,39 +104,42 @@ class CircularList:
 
     def add_front(self, value: object) -> None:
         """
+        Add node to front of CDLL.
         """
         new_node = DLNode(value)
-        new_node.prev = self.sentinel
-        new_node.next = self.sentinel.next
+        new_node.prev = self.sentinel           # set prev pointer of new node to sentinel
+        new_node.next = self.sentinel.next      # set next pointer of new node to sentinel.next
 
-        self.sentinel.next = new_node
-        new_node.next.prev = new_node
+        self.sentinel.next = new_node           # set next pointer of sentinel to new node
+        new_node.next.prev = new_node           # set prev pointer of original first node to point to new node
 
     def add_back(self, value: object) -> None:
         """
+        Add node to back of CDLL.
         """
         new_node = DLNode(value)
-        new_node.prev = self.sentinel.prev
-        new_node.next = self.sentinel
+        new_node.prev = self.sentinel.prev      # set prev pointer of new node to last node
+        new_node.next = self.sentinel           # set next pointer of new node to sentinel
 
-        self.sentinel.prev = new_node
-        new_node.prev.next = new_node
+        self.sentinel.prev = new_node           # set prev pointer of sentinel to point to new node
+        new_node.prev.next = new_node           # set next pointer of original last node to point to new node
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
+        Insert node at index in CDLL.
         """
-        if index < 0 or index > self.length():
+        if index < 0 or index > self.length():      # if index is invalid, raise exception
             print(index)
             raise CDLLException
 
         count = 0
         current = self.sentinel
 
-        while count != index:
+        while count != index:                       # traverse linked list up to index
             current = current.next
             count += 1
 
-        new_node = DLNode(value)
+        new_node = DLNode(value)                    # update prev and next pointer of inserted node
         new_node.prev = current
         new_node.next = current.next
 
@@ -145,16 +148,17 @@ class CircularList:
 
     def remove_front(self) -> None:
         """
+        Remove node at front of CDLL.
         """
         if self.is_empty():
             raise CDLLException
-
 
         self.sentinel.next = self.sentinel.next.next
         self.sentinel.next.prev = self.sentinel
 
     def remove_back(self) -> None:
         """
+        Remove node at back of CDLL.
         """
         if self.is_empty():
             raise CDLLException
@@ -164,25 +168,24 @@ class CircularList:
 
     def remove_at_index(self, index: int) -> None:
         """
+        Remove node at index in CDLL..
         """
-        if index < 0 or index >= self.length():
+        if index < 0 or index > self.length():         # if index is invalid
             raise CDLLException
 
         count = 0
         current = self.sentinel
 
-        while count != index:
+        while count != index:                           # traverse linked list to index
             current = current.next
             count += 1
 
-        if current.next == self.sentinel:
-            raise CDLLException
-
-        current.next.next.prev = current
+        current.next.next.prev = current                # update pointers after removing node
         current.next = current.next.next
 
     def get_front(self) -> object:
         """
+        Return value of first node in CDLL.
         """
         if self.is_empty():
             raise CDLLException
@@ -194,6 +197,7 @@ class CircularList:
 
     def get_back(self) -> object:
         """
+        Return value of last node in CDLL.
         """
         if self.is_empty():
             raise CDLLException
@@ -202,13 +206,15 @@ class CircularList:
 
     def remove(self, value: object) -> bool:
         """
+        Remove node with value in CDLL.
         """
 
         if self.is_empty():
             return False
 
-        current = self.sentinel.next
+        current = self.sentinel.next                # set current to first node
 
+        # if value of node is equal to value, remove node, update pointers, and return True
         while current != self.sentinel:
             if current.value == value:
                 prev = current.prev
@@ -217,55 +223,45 @@ class CircularList:
                 current.prev = None
                 current.next = None
                 return True
-            current = current.next
 
-        return False
+            current = current.next                  # if not equal to value, check next node
+
+        return False                                # if value is not found in linked list, return False
 
     def count(self, value: object) -> int:
         """
+        Return count of number of nodes with that value.
         """
-
         count = 0
         current = self.sentinel
 
         for index in range(self.length() + 1):
-            if current.value == value:
+            if current.value == value:              # increment count if node contains that value
                 count += 1
             current = current.next
 
         return count
 
-        # index = 0
-        # while index != (self.length() + 1):
-        #     if current.value == value:
-        #         count += 1
-        #     current = current.next
-        #     #index += 1
-        # return count
-
-    # if (index1 < 0) or (index2 < 0) or (index1 >= self.length()) or (index2 >= self.length()):
-    #     raise CDLLException
 
     def swap_pairs(self, index1: int, index2: int) -> None:
         """
-        Swap two nodes.
+        Swap two nodes at two given indices.
         """
         length = self.length()
 
-        # if index1 < 0 or index2 >= length or index1 >= length:
-        #     raise CDLLException
-
+        # if index is invalid
         if (index1 < 0) or (index2 < 0) or (index1 >= length) or (index2 >= length):
             raise CDLLException
 
+        # if index is the same, no change
         if index1 == index2:
             return
 
+        # if index1 is greater than index2, swap them so that index2 > index 1
         elif index1 > index2:
             index1, index2 = index2, index1
 
-
-        node1 = self.get_node_at_index(index1)
+        node1 = self.get_node_at_index(index1)          # get nodes at index 1 and 2
         node2 = self.get_node_at_index(index2)
 
         prev_of_node1 = node1.prev
@@ -274,111 +270,74 @@ class CircularList:
         prev_of_node2 = node2.prev
         next_of_node2 = node2.next
 
-        if index2 - index1 == 1:  # node1 and node2 are next to each other
+        # If node1 and node2 are next to each other
+        if index2 - index1 == 1:
 
-            prev_of_node1.next = node2
-            node2.prev = prev_of_node1
+            prev_of_node1.next = node2      # set next pointer of the prev of node1 to now point to node2
+            node2.prev = prev_of_node1      # set prev pointer of node2 to now point to prev of node1
 
-            node1.next = next_of_node2
-            next_of_node2.prev = node1
+            node1.next = next_of_node2      # set next pointer of node1 to point to what was next of node2
+            next_of_node2.prev = node1      # set prev pointer of what was next of node2 to now point to node1
 
-            node2.next = node1
-            node1.prev = node2
+            node2.next = node1              # make that node2 next pointer points to node1
+            node1.prev = node2              # set prev of node1 point to node2
 
         else:
-
-            prev_of_node1.next = node2
+            prev_of_node1.next = node2      # establish prev and next pointers b/t previous of node1 and node2
             node2.prev = prev_of_node1
 
-            node2.next = next_of_node1
+            node2.next = next_of_node1      # establish prev and next pointers b/t node2 and next of node1
             next_of_node1.prev = node2
 
-            prev_of_node2.next = node1
+            prev_of_node2.next = node1      # establish prev and next pointers b/t node1 and prev of node2
             node1.prev = prev_of_node2
 
-            node1.next = next_of_node2
+            node1.next = next_of_node2      # establish prev and next pointers b/t node1 and next of node2
             next_of_node2.prev = node1
 
-    def get_node_at_index(self, index):
 
+    def get_node_at_index(self, index):
+        """
+        Helper method to get node at index.
+        """
         curr_index = 0
         current = self.sentinel.next
 
-        while curr_index < index:
+        while curr_index < index:           # keep traversing until you reach index, then get node
             current = current.next
             curr_index += 1
 
         return current
 
-        # node1 = self.sentinel.next
-        # while index1 > 0:
-        #     node1 = node1.next
-        #     index1 -= 1
-        #
-        # node2 = self.sentinel.next
-        # while index2 > 0:
-        #     node2 = node2.next
-        #     index2 -= 1
-
-    """
-    def get_node_at_index(self, index):
-        if index < 0 or index >= self.length() or self.length() == 0:
-            raise CDLLException
-
-        curr_index = 0
-
-        # Case for previous
-        if self.length() - index < index:
-            current = self.sentinel
-            times = self.length() - index
-            print("Times: ", times)
-
-            for i in range(times):
-                current = current.prev
-
-        else:
-            current = self.sentinel.next
-
-            print("Index: ", index)
-            while curr_index < index:
-                current = current.next
-                curr_index += 1
-
-        return current
-    """
-
-
-
-
-
 
 
     def reverse(self) -> None:
         """
+        Reverse a doubly linked list.
         """
         curr = self.sentinel
 
-        for i in range(self.length() + 1):
+        for i in range(self.length() + 1):    # traverse linked list
             next_node = curr.next
             prev_node = curr.prev
 
-            curr.next = prev_node
-            curr.prev = next_node
+            curr.next = prev_node             # set next pointer to point to prev node
+            curr.prev = next_node             # set prev pointer to point to next node
 
-            curr = next_node
+            curr = next_node                  # go to next node
 
     def sort(self) -> None:
         """
-        Implement a bubble sort.
+        Implement a bubble sort to sort list in non-descending order.
         """
         length = self.length()
         curr = self.sentinel.next
 
-        for i in range(length):
-            node1 = self.sentinel.next
+        for i in range(length):                 # traverse the length of the linked list
+            node1 = self.sentinel.next          # establish node1 and node2 (the node after node1)
             node2 = self.sentinel.next.next
 
-            for j in range(length - i - 1):
+            for j in range(length - i - 1):     # compare and swap from (length-index-1)
 
                 # value on left is greater on the right, swap
                 if node1.value > node2.value:
@@ -386,21 +345,20 @@ class CircularList:
                     temp1 = node1
                     temp2 = node2
 
-                    # swap n1 and s2
-                    node1.next = node2.next
-                    node2.prev = node1.prev
+                    # swap node1 and node2
+                    node1.next = node2.next     # update pointers so that node1's next node is what was node2's next node
+                    node2.prev = node1.prev     # and that node2's previous node is what was node1's previous node
 
-                    node1.prev.next = node2
-                    node2.next.prev = node1
+                    node1.prev.next = node2     # update node1's previous node to point to node2 now
+                    node2.next.prev = node1     # update nodes'2 next node to have it's previous pointer point to node1 now
 
                     node1.prev = node2
                     node2.next = node1
 
-                    node1 = temp2
+                    node1 = temp2               # swap node1 and node2
                     node2 = temp1
 
-
-                # else, update pointers to proceed to next node
+                # else, update pointers to proceed to next nodes
                 node1 = node1.next
                 node2 = node2.next
 
@@ -408,56 +366,12 @@ class CircularList:
 
     def rotate(self, steps: int) -> None:
         """
+        Rotate a linked list by given steps.
         """
-        # length = self.length()
-        #
-        # if length <= 1:
-        #     return
-        #
-        # steps %= length
-        #
-        # if steps == 0:
-        #     return
-        #
-        # if steps > 0:  # rotate right
-        #     for i in range(steps):
-        #         sentinel = self.sentinel
-        #         next = sentinel.next
-        #         next_next = next.next
-        #         back = sentinel.prev
-        #
-        #         back.prev = next
-        #
-        #         sentinel.next = next_next
-        #         sentinel.prev = next
-        #
-        #         next.next = sentinel
-        #         next.prev = back
-        #
-        #         next_next.prev = sentinel
-        #
-        # elif steps < 0:  # rotate left
-        #     steps = -steps
-        #     for i in range(steps):
-        #         sentinel = self.sentinel
-        #         next = sentinel.next
-        #         next_next = next.next
-        #         back = sentinel.prev
-        #
-        #         back.prev = sentinel
-        #         back.next = next
-        #
-        #         sentinel.next = back
-        #         sentinel.prev = next_next
-        #
-        #         next_next.prev = sentinel
-        #
-        #         next.prev = back
-        # -------------------------------------------------------------
 
         length = self.length()
 
-        # list is empty, return
+        # list is empty or only has one value, no change
         if length == 0 or length == 1:
             return
 
@@ -468,7 +382,7 @@ class CircularList:
         if steps == 0:
             return
 
-        # make tail point to last node
+        # make tail point to last node, head point to first node
         tail = self.sentinel.prev
         head = self.sentinel.next
 
@@ -476,241 +390,77 @@ class CircularList:
         # connect tail node to original head node
         # change pointers
 
-
         # new head will start from (length - k steps)
         # attach tail -> next to head and find new head relative to tail position
         steps_to_new_head = length - steps
-        tail.next = head
+        tail.next = head                    # connect tail node with original head node with both pointers
         head.prev = tail
 
         while steps_to_new_head > 0:
-            tail = tail.next
+            tail = tail.next                # get new tail
             steps_to_new_head -= 1
 
-        new_head = tail.next
-        new_head.prev = self.sentinel
-        tail.next = self.sentinel
+        new_head = tail.next                # new head is the next node after the new tail
 
-
-
-
-        self.sentinel.prev = tail
-
+        new_head.prev = self.sentinel       # establish new head as first node
         self.sentinel.next = new_head
 
+        tail.next = self.sentinel           # establish new tail to point to sentinel
+        self.sentinel.prev = tail
 
 
-
-
-
-
-
-
-
-
-
-        # make tail point to last node while calculating length of length list
-        # calculate relative position of k steps
-        # if k == 0, return
-
-        # new head will start from length - k
-        # attach tail.next to head and find new head relative to tail position
-
-        # make new head point to tail.next
-        # and point tail.next to sentinel
-
-
-
-
-
-                # check base case:
-                # if list is empty or (list.length() % steps == 0):
-                    # return
-
-
-        # length = list.length()
-        # tail = self.sentinel.next
-
-        # while tail.next != self.sentinel:
-        #       tail = tail.next
-        # tail.next = self.sentinel
-
-        # Need to adjust k
-        #       k %= n
-        #      (length %= steps)
-
-
-        # steps_to_sentinel = length - steps
-        # self.sentinel.next = head
-
-
-        # while steps_to_sentinel > 0:
-        #       steps_to_new_head -= 1
-
-        # new_head = tail.next
-        # tail.next = None
-
-        # new_tail = head
-        # for index in range (1, n - k):
-                # new_tail = new_tail.next
-
-        # new_head = new_tail.next
-        # new_tail.next = self.sentinel
-
-
-        # In our case the new_head is the sentinel
-
-
-
-        # -----------------------------------------------
-
-        # while curr.next != self.sentinel:
-        #       curr = curr.next
-        #       k %= self.length()
-        # if k == 0: k is a multiple of n, return
-
-        #       new tail = tail
-        #       connect tail to front
-        #       tail.next = head
-        #       move new tail to position ( steps to new tail = n - k )
-        #       while steps_to_new_tail:
-        #           new_tail = new_tail.next
-
-        #       new_head = new_tail.next (new pointer new_head assigned to next element of new_tail)
-        #       new_tail.next = null pointer
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # curr = self.sentinel
-        # first_node = self.sentinel.next
-        # last_node = self.sentinel.prev
-
-        # last_node.next =
-
-        # -------------------------
-
-        # set last node to point to first node
-        # check if steps is positive or negative
-        # rotate to right if steps is positive
-        # shift i steps to the previous for both first and last pointer
-
-        # rotate left if steps is negative
-        # shift i steps to next for for both first and last pointer
-
-        # change next pointer of last node to sentinel
-        # change next pointer of sentinel to first node
-
-        # --------------------------------------------------------------------------
-
-        # if list is empty, return
-
-
-        # rotate right (positive number)
-            # while curr.next != self.sentinel:
-            #       curr = curr.next
-            #       k %= self.length()
-                    # if k == 0: k is a multiple of n, return
-
-            #       new tail = tail
-            #       connect tail to front
-            #       tail.next = head
-            #       move new tail to position ( steps to new tail = n - k )
-            #       while steps_to_new_tail:
-            #           new_tail = new_tail.next
-
-            #       new_head = new_tail.next (new pointer new_head assigned to next element of new_tail)
-            #       new_tail.next = null pointer
-
-
-
-
-
-        # rotate left (negative number)
-
-
-
-
-
-        """
-        head = self.sentinel
-        curr = self.sentinel.next
-        last = self.sentinel.prev
-
-        if steps == 0:
-            return
-
-        count = 1
-        while (count < steps) and (curr != self.sentinel):
-            curr = curr.next
-            count += 1
-
-        if curr == None:
-            return
-
-        num_node = curr
-
-        while curr.next != self.sentinel:
-            curr = curr.next
-
-        curr.next = curr
-        curr.prev = curr
-        curr = num_node.next
-        """
 
     def remove_duplicates(self) -> None:
         """
+        Remove all numbers with duplicates in linked list so only unique numbers remain.
         """
         curr = self.sentinel.next
 
-        while (curr.next != self.sentinel):
+        while curr.next != self.sentinel:
+
+            # if current value is equal to next value, but value after that is not equal to current value, remove
+            #       both current and next value (if you only have 2 copies of that number)
             if curr.value == curr.next.value and curr.next.next.value != curr.value:
                 self.remove_node(curr.next)
                 self.remove_node(curr)
+
+            # if current value equals next value, remove next value
             elif curr.value == curr.next.value:
                 self.remove_node(curr.next)
+
+            # traverse to next node
             else:
                 curr = curr.next
 
     def remove_node(self, node):
+        """Helper method to remove node."""
         node.next.prev = node.prev
         node.prev.next = node.next
 
     def odd_even(self) -> None:
         """
+        Arrange linked list to have all nodes at odd indices, then all nodes at even indices.
         """
-
-        # get odd nodes, get even nodes
-        # link the odd nodes with the even nodes
 
         odd = self.sentinel.next  # set odd as the head
         even = self.sentinel.next.next  # set even as head.next
         even_head = even  # set pointer to even for head of even linked list
 
+        # get odd nodes, get even nodes, link the odd nodes with the even nodes
         while (even != self.sentinel and even.next != self.sentinel):
-            odd.next = even.next
+            odd.next = even.next        # get odd nodes
             odd = odd.next
             odd.next.prev = odd
 
-            even.next = odd.next
+            even.next = odd.next        # get even nodes
             even = even.next
             even.next.prev = even
 
-        odd.next = even_head
+        odd.next = even_head            # link odd nodes with even nodes
 
     def add_integer(self, num: int) -> None:
         """
+        Add integer to linked list.
         """
 
         # given a linked list and integer
@@ -760,32 +510,32 @@ class CircularList:
         #     Get next number // 10 to get next number.
         #     Repeat until number is 9 or less, because you won't need any more nodes then.
 
-        curr = self.sentinel.prev
+        curr = self.sentinel.prev       # start at last node
 
         while curr != self.sentinel:
-            sum = curr.value + num  # add node value and number
-            digit = sum % 10  # get digit
-            curr.value = digit  # place value into node
+            sum = curr.value + num      # add node value and number
+            digit = sum % 10            # get digit
+            curr.value = digit          # place value into node
 
-            num = sum // 10  # get next number
+            num = sum // 10             # get next number
 
-            curr = curr.prev
+            curr = curr.prev            # traverse backwards in linked list
 
             # When you have reached self.sentinel, but num still has a number, create a node
             while curr == self.sentinel:
                 if num == 0:
                     break
 
-                if num <= 9:
+                if num <= 9:                # if number is 9 or last, add that node
                     self.add_front(num)
                     break
 
-                else:
+                else:                       # if greater than 9, add the digit, then repeat until less than 9
                     digit = num % 10
                     num = num // 10
                     self.add_front(digit)
 
-        if self.is_empty():
+        if self.is_empty():             # if linked list is empty, but you have an integer, add into linked list
             while num > 9:
                 digit = num % 10
                 self.add_front(digit)

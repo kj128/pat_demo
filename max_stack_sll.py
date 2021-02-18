@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
+# Student Name: Katrina Jang
+# Assignment: 3
+# Description: Implement methods for a stack using a singly linked list
 
 
 from sll import SLNode, LinkedList
@@ -51,23 +51,28 @@ class MaxStack:
 
     def push(self, value: object) -> None:
         """
+        Add new element to top of stack with O(1) runtime complexity.
         """
-        self.sll_val.add_front(value)
+        self.sll_val.add_front(value)       # add value to top of val stack
 
+        # if max stack is empty or if current value in stack is greater than or equal to max stack,
+        #   add to top of max stack
         if self.sll_max.is_empty() or self.sll_max.get_front() <= value:
             self.sll_max.add_front(value)
 
     def pop(self) -> object:
         """
+        Remove top element of stack and returns it with O(1) runtime complexity.
         """
 
+        # stack is empty, raise exception
         if self.is_empty():
             raise StackException
 
-        # get back
-        removed_obj = self.sll_val.get_front()
-        self.sll_val.remove_front()
+        removed_obj = self.sll_val.get_front()      # get object at top of val stack to return later
+        self.sll_val.remove_front()                 # remove top element of val stack
 
+        # if max stack is not empty, remove same object you popped off the val stack
         if self.sll_max.is_empty() is False and self.sll_max.get_front() == removed_obj:
             self.sll_max.remove_front()
 
@@ -75,21 +80,24 @@ class MaxStack:
 
     def top(self) -> object:
         """
+        Return value of top element of stack without removing it with O(1) runtime complexity.
         """
         if self.is_empty():
             raise StackException
 
-        # get back
+        # get and return top element of stack
         top_obj = self.sll_val.get_front()
         return top_obj
 
 
     def get_max(self) -> object:
         """
+        Return max value in stack with O(1) runtime complexity.
         """
         if self.is_empty():
             raise StackException
 
+        # return top element of max stack which is max value
         return self.sll_max.get_front()
 
 

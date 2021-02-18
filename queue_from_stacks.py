@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
+# Student Name: Katrina Jang
+# Assignment: 3
+# Description: Implement methods for a queue from a stack
 
 
 from max_stack_sll import MaxStack
@@ -51,21 +51,26 @@ class Queue:
 
     def enqueue(self, value: object) -> None:
         """
+        Adds new value to end of queue with O(1) runtime complexity.
         """
         self.s1.push(value)
 
     def dequeue(self) -> object:
         """
+        Removes and returns value at beginning of queue with runtime complexity of not worse than O(n).
         """
 
         if self.s1.is_empty():
             raise QueueException
 
+        # while s1 is not empty, pop top of stack and push to s2
         while self.s1.is_empty() is not True:
             self.s2.push(self.s1.pop())
 
+        # pop top of s2 stack off to remove value at beginning of queue
         s2_elem = self.s2.pop()
 
+        # while s2 is not empty, pop and push values back into s1
         while self.s2.is_empty() is not True:
             self.s1.push(self.s2.pop())
 

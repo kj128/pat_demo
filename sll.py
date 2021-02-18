@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
-# Student Name:
-# Assignment:
-# Description:
+# Student Name: Katrina Jang
+# Assignment: 3
+# Description: Implement methods for a singly linked list
 
 
 class SLLException(Exception):
@@ -77,6 +77,7 @@ class LinkedList:
 
     def add_front(self, value: object) -> None:
         """
+        Add new node to front of the linked list.
         """
         new_node = SLNode(value)
         new_node.next = self.head.next
@@ -84,11 +85,16 @@ class LinkedList:
 
     def add_back(self, value: object) -> None:
         """
+        Add node to back of the linked list.
         """
         # traverse the list to find last node
         self.add_back_help(value, self.head)
 
     def add_back_help(self, value, curr):
+        """
+        Helper method to add node to back of linked list.
+        """
+        # If we have transversed to the last node of the linked list, create new node and add to back
         if curr.next == self.tail:
             new_node = SLNode(value)
             curr.next = new_node
@@ -98,41 +104,44 @@ class LinkedList:
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
+        Insert node at index in linked list.
         """
-
+        # If index is less than 0 or greater than the length of the list, raise exception
         if index < 0 or index > self.length():
             raise SLLException
 
         self.insert_at_index_help(index, value, self.head)
 
     def insert_at_index_help(self, index, value, curr):
+        """
+        Helper method to insert node at index in linked list.
+        """
+        # when we have finally reached the index, insert node
         if index == 0:
             new_node = SLNode(value)
             new_node.next = curr.next
             curr.next = new_node
 
+        # otherwise, decrement index and transverse to next node
         else:
             self.insert_at_index_help(index - 1, value, curr.next)
 
     def remove_front(self) -> None:
         """
+        Remove node at front of linked list.
         """
-
-        """
-        if self.head.next == self.tail:
-            raise SLLException
-
-        self.head.next = self.head.next.next
-        """
+        # if linked list is empty, raise exception
         if self.is_empty():
             raise SLLException
 
+        # otherwise, remove first node
         node = self.head.next
         self.head.next = node.next
         node.next = None
 
     def remove_back(self) -> None:
         """
+        Remove node at back of linked list.
         """
         if self.is_empty():
             raise SLLException
@@ -140,6 +149,10 @@ class LinkedList:
         self.remove_back_help(self.head)
 
     def remove_back_help(self, curr):
+        """
+        Helper method to remove node at back of linked list.
+        """
+        # when you have reached the second to last node, change next pointer to tail and remove last node
         if curr.next.next == self.tail:
             last_node = curr.next
             curr.next = self.tail
@@ -149,24 +162,30 @@ class LinkedList:
 
     def remove_at_index(self, index: int) -> None:
         """
+        Remove node at index.
         """
         if index < 0 or index > (self.length() - 1):
             raise SLLException
         self.remove_at_index_help(index, self.head)
 
     def remove_at_index_help(self, index, curr):
+        """
+        Helper method to remove node at index.
+        """
+        # once you have reached the index, remove it
         if index == 0:
             node = curr.next
             curr.next = node.next
             node.next = None
 
+        # otherwise, decrement the index and go to next node
         else:
             self.remove_at_index_help(index - 1, curr.next)
 
     def get_front(self) -> object:
         """
+        Return value of first node.
         """
-
         if self.is_empty():
             raise SLLException
 
@@ -174,6 +193,7 @@ class LinkedList:
 
     def get_back(self) -> object:
         """
+        Return value of last node.
         """
         if self.is_empty():
             raise SLLException
@@ -181,19 +201,31 @@ class LinkedList:
         return self.get_back_help(self.head)
 
     def get_back_help(self, curr):
+        """
+        Helper method to return value of last node.
+        """
+        # when you reach last node, return that value
         if curr.next == self.tail:
             return curr.value
+
+        # otherwise, traverse to next node of linked list
         else:
             return self.get_back_help(curr.next)
 
     def remove(self, value: object) -> bool:
         """
+        Remove node with value.
         """
         return self.remove_help(value, self.head)
 
     def remove_help(self, value, curr):
+        """Helper method to remove node with value."""
+
+        # if no nodes contain value return False
         if curr.next == self.tail:
             return False
+
+        # if node has that value, remove node and return true
         elif curr.next.value == value:
             node = curr.next
             curr.next = node.next
@@ -204,49 +236,78 @@ class LinkedList:
 
     def count(self, value: object) -> int:
         """
+        Return count of nodes with that value.
         """
         return self.count_help(value, self.head)
 
     def count_help(self, value, curr):
+        """
+        Helper method to return count of methods with that value.
+        """
+
+        # if no nodes in linked list contain that value, return count of 0
         if curr.next == self.tail:
             return 0
+
+        # if node contains that value, add 1 to the count and go to next node
         elif curr.next.value == value:
             return 1 + self.count_help(value, curr.next)
+
+        # if node does not contain value, move to next node
         else:
             return self.count_help(value, curr.next)
 
 
     def slice(self, start_index: int, size: int) -> object:
         """
+        Return a new linked list of given size that starts at start index.
         """
+        # if start index is not in range [0, n-1], or if size is less than 0 or greater than length of list,
+        #   raise exception
         if start_index < 0 or start_index > self.length() - 1 or \
                 size < 0 or start_index + size > self.length():
             raise SLLException
 
+        # if linked list has no nodes, return empty linked list
         if size == 0:
             return LinkedList()
 
+        # otherwise, get node at start index
         node = self.get_node_at_index(start_index)
-
-        new_ll = LinkedList()
-        self.slice_help(node, size, new_ll)
+        new_ll = LinkedList()                   # create new linked list
+        self.slice_help(node, size, new_ll)     # create slice starting at start index of correct size
         return new_ll
 
     def slice_help(self, node, size, new_ll):
+        """
+        Helper method for slice method.
+        """
+
+        # while you have not finished making slice of appropriate size,
+        #   add node to new Linkedlist object, decrease size, and go to next node
         if size != 0:
             new_ll.add_back(node.value)
             self.slice_help(node.next, size - 1, new_ll)
 
     def get_node_at_index(self, index: int):
         """
+        Helper method to get node at index for slice method.
         """
+        # if index is invalid, raise exception
         if index < 0 or index > (self.length() - 1):
             raise SLLException
+
+        # get node at index
         return self.get_node_at_index_help(index, self.head)
 
     def get_node_at_index_help(self, index, curr):
+        """
+        Helper method for get node at index.
+        """
         if index < 0:
             return curr
+
+        # traverse list to get next node until you have reached index
         else:
             return self.get_node_at_index_help(index - 1, curr.next)
 
