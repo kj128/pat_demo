@@ -83,7 +83,7 @@ class Queue:
         # return last_obj
 
 
-
+"""
 # BASIC TESTING
 if __name__ == "__main__":
     pass
@@ -105,5 +105,5 @@ if __name__ == "__main__":
             print(q.dequeue(), q)
         except Exception as e:
             print("No elements in queue", type(e))
-
+"""
 

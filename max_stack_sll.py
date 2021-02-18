@@ -102,6 +102,7 @@ class MaxStack:
 
 
 # BASIC TESTING
+"""
 if __name__ == "__main__":
     pass
 
@@ -157,5 +158,6 @@ if __name__ == "__main__":
             print(s.get_max())
         except Exception as e:
             print(type(e))
+"""
 
 
