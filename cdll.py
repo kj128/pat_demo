@@ -174,7 +174,7 @@ class CircularList:
             raise CDLLException
 
         count = 0
-        current = self.sentinel
+        current = self.sentinel.next
 
         while count != index:                           # traverse linked list to index
             current = current.next
@@ -183,7 +183,7 @@ class CircularList:
         if current.next == self.sentinel:
             raise CDLLException
 
-        current.next.next.prev = current                # update pointers after removing node
+        current.next.prev = current                # update pointers after removing node
         current.next = current.next.next
 
     def get_front(self) -> object:
