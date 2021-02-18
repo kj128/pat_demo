@@ -174,7 +174,7 @@ class CircularList:
             raise CDLLException
 
         count = 0
-        current = self.sentinel.next
+        current = self.sentinel
 
         while count != index:                           # traverse linked list to index
             current = current.next
