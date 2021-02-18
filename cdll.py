@@ -183,7 +183,7 @@ class CircularList:
         if current.next == self.sentinel:
             raise CDLLException
 
-        current.next.prev = current                # update pointers after removing node
+        current.next.next.prev = current                # update pointers after removing node
         current.next = current.next.next
 
     def get_front(self) -> object:
