@@ -170,7 +170,7 @@ class CircularList:
         """
         Remove node at index in CDLL..
         """
-        if index < 0 or index > self.length():         # if index is invalid
+        if index < 0 or index >= self.length():         # if index is invalid
             raise CDLLException
 
         count = 0
@@ -179,6 +179,9 @@ class CircularList:
         while count != index:                           # traverse linked list to index
             current = current.next
             count += 1
+
+        if current.next == self.sentinel:
+            raise CDLLException
 
         current.next.next.prev = current                # update pointers after removing node
         current.next = current.next.next
