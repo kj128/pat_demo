@@ -173,12 +173,10 @@ class CircularList:
         if index < 0 or index >= self.length():         # if index is invalid
             raise CDLLException
 
-        count = 0
         current = self.sentinel
 
-        while count != index:                           # traverse linked list to index
+        for count in range(index):                      # traverse linked list to index
             current = current.next
-            count += 1
 
         if current.next == self.sentinel:
             raise CDLLException
@@ -609,7 +607,8 @@ if __name__ == '__main__':
     print(lst)
     lst.remove_back()
     print(lst)
-
+    
+    """
     print('\n# remove_at_index example 1')
     lst = CircularList([1, 2, 3, 4, 5, 6])
     print(lst)
@@ -621,7 +620,7 @@ if __name__ == '__main__':
         except Exception as e:
             print(type(e))
     print(lst)
-    
+    """
 
     print('\n# get_front example 1')
     lst = CircularList(['A', 'B'])
